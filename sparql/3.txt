@@ -1,0 +1,37 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT  ?cast ?castLabel ?sayi
+WHERE 
+{
+  	{
+   	    SELECT  ?cast (COUNT(?film_title) as ?sayi)
+        WHERE
+           {
+           ?human wdt:P31 wd:Q5 ; wdt:P106 wd:Q33999 .
+  			?human rdfs:label ?isim 
+			FILTER regex(?isim,"Al Pacino","i")
+   	    	FILTER(lang(?isim) = "en"). 
+  		?film wdt:P31 wd:Q11424 ; wdt:P161 ?human.
+  	    ?film wdt:P1476 ?film_title 
+        	FILTER(lang(?film_title) = "en") .
+		?film wdt:P161 ?cast.
+        ?film wdt:P272 ?prod
+              FILTER (?prod = wd:Q159846)
+           } 
+        GROUP BY ?cast
+     }              
+        SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+		}      
+   
+}
+
+ORDER BY DESC(?sayi)
+LIMIT 10
+
+

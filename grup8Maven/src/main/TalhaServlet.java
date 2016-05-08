@@ -286,65 +286,7 @@ public static void getSemanticResult(String name){
 	
 }
 
-public static void main(String [] args){
-	
-	
-	mountains =new ArrayList<mountain>();
-	searchResult= new ArrayList<myPair>();
-	String s1 ="PREFIX wikibase: <http://wikiba.se/ontology#>\n"+
-			"PREFIX wdt: <http://www.wikidata.org/prop/direct/>\n"+
-			"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"+
-			"PREFIX bd: <http://www.bigdata.com/rdf#>"+
-			"PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"+
-			"PREFIX wd: <http://www.wikidata.org/entity/>\n"+
-			
-				
-				
-			
-				"#Mountains over 7000 elevation  \n"+
-				"SELECT ?subj ?label ?coord ?elev ?continent ?globe \n"+ 
-				"WHERE\n"+
-				"{\n"+
-					"?subj wdt:P2044 ?elev filter(?elev >7000) .	\n"+
-					"?subj wdt:P625 ?coord .\n"+
-					"?subj wdt:P30 ?continent .\n"+
-					//"?subj wikibase:geoGlobe ?globe FILTER ( ?globe = wd:Q2 )\n"+
-					"SERVICE wikibase:label { bd:serviceParam wikibase:language \"en,zh\" . ?subj rdfs:label ?label }\n"+ 
-				"}\n"+
-				"LIMIT 100"	;
-	
-	
-	
-	  
-      Query query = QueryFactory.create(s1); 
-      QueryExecution qExe = QueryExecutionFactory.sparqlService( "https://query.wikidata.org/sparql", query );
-     
-      ResultSet results = qExe.execSelect();
-     double[] coords =new double[2];
-      while (results.hasNext()) {
-  		QuerySolution binding = results.nextSolution();
-  		
-  		coords= findCoordinates(binding.get("?coord").toString());
-  		mountain currentMountain =new mountain(findLabel(binding.get("?label").toString()), findElevation(binding.get("?elev").toString()) , coords[0],coords[1] ) ;
-  		mountains.add(currentMountain);
-  		
-  		
-  	}
-      /*
-      for(int i = 0 ; i  < mountains.size(); i++){
-    	  System.out.println(mountains.get(i).label+" "+mountains.get(i).elevation + " " + mountains.get(i).coor1+" "+mountains.get(i).coor2);
-    	  
-      }
-      */
-      getSemanticResult("Khan Tengri");
-      
-      //printResult();
-      createSortedList();
-      
-    
-      
-	
-}
+
 }
 
 				

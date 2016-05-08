@@ -4,4 +4,14 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>TalhaServlet</servlet-name>
+  	<display-name>TalhaServlet</display-name>
+  	<description></description>
+  	<servlet-class>TalhaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>TalhaServlet</servlet-name>
+  	<url-pattern>/TalhaServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

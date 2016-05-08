@@ -14,7 +14,13 @@
 	<groupId>javax.servlet</groupId>
 	<artifactId>javax.servlet-api</artifactId>
 	<version>3.1.0</version>
-</dependency>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.jena</groupId>
+		<artifactId>apache-jena-libs</artifactId>
+		<type>pom</type>
+		<version>3.0.1</version>
+	</dependency>
   </dependencies>
   <build>
     <finalName>grup8Maven</finalName>
